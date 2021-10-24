@@ -64,7 +64,8 @@ void draw() {
         float average = depthSum/depthN;
         println("Average Depth=", average, " N=", depthN);
 
-        OscMessage message = new OscMessage("/depth");
+        OscMessage depthMessage = new OscMessage("/depth");
+        OscMessage userMessage = new OscMessage("/users");
         message.add(average);
         oscP5.send(message, myRemoteLocation);
     }
