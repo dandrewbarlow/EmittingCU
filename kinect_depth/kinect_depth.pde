@@ -70,6 +70,7 @@ void draw() {
 
     // update kinect data
     kinect.update();
+    println("loop");
 
     // get depth image from kinect
         // TODO: remove for final product.
@@ -122,7 +123,7 @@ void draw() {
         
         // send OSC signals
         sendOSCData(depthClient, "/depth", average);
-        sendOSCData(userCountClient, "/users",(float) kinect.getNumberOfUsers());
+        sendOSCData(userCountClient, "/users", (float) kinect.getNumberOfUsers());
     }
 }
 
