@@ -42,6 +42,8 @@ int userCountPortNumber = 7000;
 // the IP address of recieving computer
 String clientIP = "localhost";
 
+Boolean looping = false;
+
 // FUNCTIONS //////////////////////////////////////////////////
 
 // Initialization
@@ -70,7 +72,10 @@ void draw() {
 
     // update kinect data
     kinect.update();
-    println("loop");
+    if (!looping){
+      println("looping");
+      looping = true;
+    }
 
     // get depth image from kinect
         // TODO: remove for final product.
@@ -119,11 +124,18 @@ void draw() {
         
         // calculate (sample) average depth
         float average = depthSum / depthN;
-        println("Average Depth=", average, " N=", depthN);
+        float userCount = (float) kinect.getNumberOfUsers();
+
+        // handling when user leaves frame
+        if (Float.isNaN(average)) {
+            average = 2500;
+            userCount = 0;
+        }
+        // println("Average Depth=", average, " N=", depthN);
         
         // send OSC signals
         sendOSCData(depthClient, "/depth", average);
-        sendOSCData(userCountClient, "/users", (float) kinect.getNumberOfUsers());
+        sendOSCData(userCountClient, "/users", userCount);
     }
 }
 
@@ -141,7 +153,8 @@ void sendOSCData(NetAddress client, String title, float message) {
 }
 
 // Imma keep it real. I forget why I included this. I think this is boilerplate from SimpleOpenNI's documentation
-void onNewUser(int uID) {
+void onNewUser(SimpleOpenNI kinect, int uID) {
     userID = uID;
     println("tracking");
+    kinect.startTrackingSkeleton(userID);
 }
