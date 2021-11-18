@@ -41,8 +41,8 @@ NetAddress bradDepth;
 NetAddress bradUserCount;
 
 // define an easy to remember port to recieve the data over
-int depthPortNumber = 6969;
-int userCountPortNumber = 7000;
+int depthPortNumber = 10101;
+int userCountPortNumber = 10102;
 
 // the IP address of recieving computer
 String clientIP = "192.168.1.65";
@@ -139,7 +139,7 @@ void draw() {
 
     // handling when user leaves frame
     if (Float.isNaN(average)) {
-        average = 2500;
+        average = 7500;
         userCount = 0;
     }
     
