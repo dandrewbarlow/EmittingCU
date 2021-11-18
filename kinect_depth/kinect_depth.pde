@@ -30,23 +30,28 @@ int userID;
 // userMap is an array that maps a percieved skeleton to an int corresponding to a pixel
 int[] userMap;
 
+IntList userMovingAverageArray;
+FloatList depthMovingAverageArray;
+
+// amount of values to keep in averaging lists
+int movingAverageN = 50;
+
+int userMovingAverage;
+float depthMovingAverage;
+
 // OSC object
 OscP5 oscP5;
 
 // used to simplify network logic
-NetAddress depthClient;
-NetAddress userCountClient;
-NetAddress userCountClient2;
-NetAddress bradDepth;
-NetAddress bradUserCount;
+NetAddress sculptureClient;
+
+NetAddress bradClient;
 
 // define an easy to remember port to recieve the data over
-int depthPortNumber = 10101;
-int userCountPortNumber = 10102;
+int portNumber = 10101;
 
 // the IP address of recieving computer
 String clientIP = "192.168.1.65";
-//String client2IP = "192.168.1.207";
 String bradIP = "192.168.1.232";
 
 // FUNCTIONS //////////////////////////////////////////////////
@@ -64,14 +69,20 @@ void setup() {
     kinect.enableDepth();
     kinect.enableUser();
 
+    // Moving Average Setup
+    userMovingAverageArray = new IntList();
+    depthMovingAverageArray = new FloatList();
+
     // OSC initialization
     oscP5 = new OscP5(this,12000);
     
-    depthClient = new NetAddress(clientIP, depthPortNumber);
-    userCountClient = new NetAddress(clientIP, userCountPortNumber);
-    //userCountClient2 = new NetAddress(client2IP, userCountPortNumber);
-    bradDepth = new NetAddress(bradIP, 7000);
-    bradUserCount = new NetAddress(bradIP, 7001);
+    // define clients
+    sculptureClient = new NetAddress(clientIP, portNumber);
+    bradClient = new NetAddress(bradIP, portNumber);
+
+    // from when I was sending to different ports
+    // bradDepth = new NetAddress(bradIP, 7000);
+    // bradUserCount = new NetAddress(bradIP, 7001);
 }
 
 // main loop
@@ -135,23 +146,52 @@ void draw() {
         
      // calculate (sample) average depth
     float average = depthSum / depthN;
-    float userCount = (float) kinect.getNumberOfUsers();
+    int userCount = kinect.getNumberOfUsers();
 
     // handling when user leaves frame
     if (Float.isNaN(average)) {
         average = 7500;
         userCount = 0;
     }
+
+    depthMovingAverageArray.append(average);
+    userMovingAverageArray.append(userCount);
+
+    if (depthMovingAverageArray.size() > movingAverageN)
+    {
+        depthMovingAverageArray.remove(0);
+    }
+    if (userMovingAverageArray.size() > movingAverageN)
+    {
+        depthMovingAverageArray.remove(0);
+    }
     
     // send OSC signals
-    sendOSCData(depthClient, "/depth", average);
-    sendOSCData(userCountClient, "/users", userCount);
-    //sendOSCData(userCountClient2, "/users/", (float) kinect.getNumberOfUsers());
+    sendOSCData(sculptureClient, "/depth", calculateDepthAverage());
+    sendOSCData(sculptureClient, "/users", calculateUserAverage());
     
-    sendOSCData(bradDepth, "/depth", average);
-    sendOSCData(bradUserCount, "/users", userCount);
+    sendOSCData(bradClient, "/depth", calculateDepthAverage());
+    sendOSCData(bradClient, "/users", calculateUserAverage());
+}
 
+int calculateUserAverage() {
+    int sum = 0;
+    for (int i = 0; i < userMovingAverageArray.size(); i++)
+    {
+        sum += userMovingAverageArray.get(i);
+    }
 
+    return sum / userMovingAverageArray.size();
+}
+
+float calculateDepthAverage() {
+    float sum = 0;
+    for (int i = 0; i < depthMovingAverageArray.size(); i++)
+    {
+        sum += depthMovingAverageArray.get(i);
+    }
+
+    return sum / depthMovingAverageArray.size();
 }
 
 // sendOSCData() is a helper function to take the seperate components of a OSC message, combine, and send them
