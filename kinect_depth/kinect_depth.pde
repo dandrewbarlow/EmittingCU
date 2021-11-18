@@ -174,11 +174,11 @@ void draw() {
     sendOSCData(bradClient, "/users", calculateUserAverage());
 }
 
-int calculateUserAverage() {
-    int sum = 0;
+float calculateUserAverage() {
+    float sum = 0;
     for (int i = 0; i < userMovingAverageArray.size(); i++)
     {
-        sum += userMovingAverageArray.get(i);
+        sum += (float) userMovingAverageArray.get(i);
     }
 
     return sum / userMovingAverageArray.size();
