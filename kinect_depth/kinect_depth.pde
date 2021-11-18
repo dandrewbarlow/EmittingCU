@@ -35,6 +35,7 @@ FloatList depthMovingAverageArray;
 
 // amount of values to keep in averaging lists
 int movingAverageN = 50;
+int userMovingAverageN = 10;
 
 int userMovingAverage;
 float depthMovingAverage;
@@ -161,9 +162,9 @@ void draw() {
     {
         depthMovingAverageArray.remove(0);
     }
-    if (userMovingAverageArray.size() > movingAverageN)
+    if (userMovingAverageArray.size() > userMovingAverageN)
     {
-        depthMovingAverageArray.remove(0);
+        userMovingAverageArray.remove(0);
     }
     
     // send OSC signals
