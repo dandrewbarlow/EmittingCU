@@ -15,6 +15,8 @@ import oscP5.*;
 
 // VARIABLES //////////////////////////////////////////////////
 
+Boolean looping = false;
+
 // kinect object
 SimpleOpenNI kinect;
 
@@ -34,15 +36,18 @@ OscP5 oscP5;
 // used to simplify network logic
 NetAddress depthClient;
 NetAddress userCountClient;
+NetAddress userCountClient2;
+NetAddress bradDepth;
+NetAddress bradUserCount;
 
 // define an easy to remember port to recieve the data over
 int depthPortNumber = 6969;
 int userCountPortNumber = 7000;
 
 // the IP address of recieving computer
-String clientIP = "localhost";
-
-Boolean looping = false;
+String clientIP = "192.168.1.65";
+//String client2IP = "192.168.1.207";
+String bradIP = "192.168.1.232";
 
 // FUNCTIONS //////////////////////////////////////////////////
 
@@ -61,8 +66,12 @@ void setup() {
 
     // OSC initialization
     oscP5 = new OscP5(this,12000);
+    
     depthClient = new NetAddress(clientIP, depthPortNumber);
     userCountClient = new NetAddress(clientIP, userCountPortNumber);
+    //userCountClient2 = new NetAddress(client2IP, userCountPortNumber);
+    bradDepth = new NetAddress(bradIP, 7000);
+    bradUserCount = new NetAddress(bradIP, 7001);
 }
 
 // main loop
@@ -87,14 +96,15 @@ void draw() {
 
     // prepare the Depth pixels 
     depthImage.loadPixels();
+    float depthSum = 0;
+    int depthN = 0; 
+
 
     // if we have detected any users
     if (kinect.getNumberOfUsers() > 0) {
 
         // find out which pixels have users in them
         userMap = kinect.userMap();  
-        float depthSum = 0;
-        int depthN = 0; 
 
         // populate the pixels array from the sketch's current contents
             // TODO: remove unnecessary visuals
@@ -121,27 +131,34 @@ void draw() {
         // display the changed pixel array
             // TODO: no need to draw anything
         updatePixels();
-        
-        // calculate (sample) average depth
-        float average = depthSum / depthN;
-        float userCount = (float) kinect.getNumberOfUsers();
-
-        // handling when user leaves frame
-        if (Float.isNaN(average)) {
-            average = 2500;
-            userCount = 0;
-        }
-        // println("Average Depth=", average, " N=", depthN);
-        
-        // send OSC signals
-        sendOSCData(depthClient, "/depth", average);
-        sendOSCData(userCountClient, "/users", userCount);
     }
+        
+     // calculate (sample) average depth
+    float average = depthSum / depthN;
+    float userCount = (float) kinect.getNumberOfUsers();
+
+    // handling when user leaves frame
+    if (Float.isNaN(average)) {
+        average = 2500;
+        userCount = 0;
+    }
+    
+    // send OSC signals
+    sendOSCData(depthClient, "/depth", average);
+    sendOSCData(userCountClient, "/users", userCount);
+    //sendOSCData(userCountClient2, "/users/", (float) kinect.getNumberOfUsers());
+    
+    sendOSCData(bradDepth, "/depth", average);
+    sendOSCData(bradUserCount, "/users", userCount);
+
+
 }
 
 // sendOSCData() is a helper function to take the seperate components of a OSC message, combine, and send them
 void sendOSCData(NetAddress client, String title, float message) {
-
+  //if (title == "/users:
+    println("OSC out -> " + client + " :  " + title + " : " + message);
+    
     // create new OSC message, with given title
     OscMessage m = new OscMessage(title);
 
@@ -153,8 +170,7 @@ void sendOSCData(NetAddress client, String title, float message) {
 }
 
 // Imma keep it real. I forget why I included this. I think this is boilerplate from SimpleOpenNI's documentation
-void onNewUser(SimpleOpenNI kinect, int uID) {
+void onNewUser(int uID) {
     userID = uID;
     println("tracking");
-    kinect.startTrackingSkeleton(userID);
 }
