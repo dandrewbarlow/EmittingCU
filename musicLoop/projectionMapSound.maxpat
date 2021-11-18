@@ -3,14 +3,14 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 8,
-			"minor" : 1,
-			"revision" : 11,
+			"minor" : 2,
+			"revision" : 1,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 91.0, 180.0, 1057.0, 681.0 ],
+		"rect" : [ 570.0, 95.0, 1308.0, 890.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,12 +40,47 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-12",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 40.0, 19.0, 150.0, 34.0 ],
+					"text" : "Brad's Loop - in case I did something wrong"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"linecount" : 8,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 121.0, 320.0, 152.0, 117.0 ],
+					"text" : "MY (Andrew's) CHANGE - \nsending audio over virtual sound device so that they sync with visuals. May need to adjust DAC settings in PillarSurround4Andrew to work with Dante"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"automatic" : 1,
+					"id" : "obj-23",
+					"maxclass" : "scope~",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 318.0, 617.0, 130.0, 130.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-32",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 409.0, 316.0, 65.0, 22.0 ],
+					"patching_rect" : [ 444.0, 214.0, 65.0, 22.0 ],
 					"text" : "1., 0. 1000"
 				}
 
@@ -56,7 +91,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 190.0, 147.0, 27.0, 20.0 ],
+					"patching_rect" : [ 225.0, 45.0, 27.0, 20.0 ],
 					"text" : "off"
 				}
 
@@ -69,7 +104,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 193.0, 169.0, 24.0, 24.0 ]
+					"patching_rect" : [ 228.0, 67.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -79,7 +114,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 308.0, 144.0, 28.0, 20.0 ],
+					"patching_rect" : [ 343.0, 42.0, 28.0, 20.0 ],
 					"text" : "on"
 				}
 
@@ -92,7 +127,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 308.0, 168.0, 24.0, 24.0 ]
+					"patching_rect" : [ 343.0, 66.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -341,7 +376,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 69.5, 204.0, 29.5, 22.0 ],
+					"patching_rect" : [ 104.5, 102.0, 29.5, 22.0 ],
 					"text" : "0."
 				}
 
@@ -353,7 +388,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "bang" ],
-					"patching_rect" : [ 332.0, 373.0, 34.0, 22.0 ],
+					"patching_rect" : [ 367.0, 271.0, 34.0, 22.0 ],
 					"text" : "line~"
 				}
 
@@ -365,7 +400,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 334.0, 312.0, 55.0, 22.0 ],
+					"patching_rect" : [ 369.0, 210.0, 55.0, 22.0 ],
 					"text" : "0., 1 100"
 				}
 
@@ -377,7 +412,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 308.0, 216.0, 41.0, 22.0 ],
+					"patching_rect" : [ 343.0, 114.0, 41.0, 22.0 ],
 					"text" : "loop 1"
 				}
 
@@ -436,7 +471,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 141.0, 259.0, 29.5, 22.0 ],
+					"patching_rect" : [ 177.5, 98.0, 29.5, 22.0 ],
 					"text" : "1."
 				}
 
@@ -462,7 +497,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 167.0, 485.0, 22.0, 140.0 ]
+					"patching_rect" : [ 181.0, 498.5, 22.0, 140.0 ]
 				}
 
 			}
@@ -473,7 +508,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 268.0, 429.0, 29.5, 22.0 ],
+					"patching_rect" : [ 297.0, 327.0, 29.5, 22.0 ],
 					"text" : "*~"
 				}
 
@@ -485,7 +520,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 185.5, 289.0, 29.5, 22.0 ],
+					"patching_rect" : [ 220.5, 187.0, 29.5, 22.0 ],
 					"text" : "0"
 				}
 
@@ -497,7 +532,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 126.0, 289.0, 46.0, 22.0 ],
+					"patching_rect" : [ 161.0, 187.0, 46.0, 22.0 ],
 					"text" : "sig~ 1."
 				}
 
@@ -509,23 +544,20 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "signal" ],
-					"patching_rect" : [ 126.0, 346.0, 132.0, 22.0 ],
-					"saved_object_attributes" : 					{
-						"basictuning" : 440,
-						"followglobaltempo" : 0,
-						"formantcorrection" : 0,
-						"loopend" : [ 0.0, "ms" ],
-						"loopstart" : [ 0.0, "ms" ],
-						"mode" : "basic",
-						"originallength" : [ 104107.81849778839387, "ticks" ],
-						"originaltempo" : 120.0,
-						"phase" : [ 0.0, "ticks" ],
-						"pitchcorrection" : 0,
-						"quality" : "basic",
-						"timestretch" : [ 0 ]
-					}
-,
+					"patching_rect" : [ 161.0, 244.0, 132.0, 22.0 ],
 					"text" : "groove~ andrewLoop 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"attr" : "automatic",
+					"id" : "obj-26",
+					"maxclass" : "attrui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 318.0, 587.0, 150.0, 22.0 ]
 				}
 
 			}
@@ -589,6 +621,14 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"order" : 1,
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-24", 0 ],
 					"source" : [ "obj-20", 1 ]
 				}
@@ -597,6 +637,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
+					"order" : 0,
 					"source" : [ "obj-20", 0 ]
 				}
 
@@ -622,6 +663,13 @@
 					"destination" : [ "obj-8", 0 ],
 					"order" : 2,
 					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
@@ -809,7 +857,7 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "PillarSurround4Andrew.maxpat",
-				"bootpath" : "~/Downloads/andrewLoop",
+				"bootpath" : "~/Desktop/EmittingCU/musicLoop",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
@@ -821,16 +869,16 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "ambiencode~.mxo",
-				"type" : "iLaX"
+				"name" : "ambiencode~.mxe64",
+				"type" : "mx64"
 			}
 , 			{
-				"name" : "ambimonitor.mxo",
-				"type" : "iLaX"
+				"name" : "ambimonitor.mxe64",
+				"type" : "mx64"
 			}
 , 			{
-				"name" : "ambicontrol.mxo",
-				"type" : "iLaX"
+				"name" : "ambicontrol.mxe64",
+				"type" : "mx64"
 			}
  ],
 		"autosave" : 0
